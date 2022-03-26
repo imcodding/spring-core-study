@@ -1,10 +1,14 @@
 package hello.core.member;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
 public class MemberServiceImpl implements MemberService {
 
     private final MemberRepository memberRepository;
 
-    //생성자로 변경 => 추상화에만 의존하게 됨. DIP 지킴 (생성자 주입)
+    @Autowired // 자동 주입 -> 스프링이 빈 찾아서 등록해줌 ac.getBean(MemberRepository.class)
     public MemberServiceImpl(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
     }
