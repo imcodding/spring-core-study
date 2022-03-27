@@ -9,15 +9,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderServiceImpl implements OrderService{
 
-    // 생성자 주입. DIP 지킴
-    private final MemberRepository memberRepository;
-    private final DiscountPolicy discountPolicy;
+    private MemberRepository memberRepository;
+    @Autowired private DiscountPolicy discountPolicy; // 필드 주입 방식 => 권장x. 스프링 테스트 할 때 종종 사용
 
-    @Autowired
-    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+    @Autowired // setter 주입 방식 => 선택(required 옵션). 변경O
+    public void setMemberRepository(MemberRepository memberRepository) {
         this.memberRepository = memberRepository;
-        this.discountPolicy = discountPolicy;
     }
+
+    //    @Autowired 생성자 주입 방식 => 필수. 변경X
+//    public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+//        this.memberRepository = memberRepository;
+//        this.discountPolicy = discountPolicy;
+//    }
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
