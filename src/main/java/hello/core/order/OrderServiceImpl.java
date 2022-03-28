@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 public class OrderServiceImpl implements OrderService{
 
     private final MemberRepository memberRepository;
-    private final DiscountPolicy discountPolicy;
+    private final DiscountPolicy discountPolicy; // Fix 랑 Rate 둘 다 @Component 로 등록돼서 충돌남. => @Primary 로 해결
 
     @Override
     public Order createOrder(Long memberId, String itemName, int itemPrice) {
