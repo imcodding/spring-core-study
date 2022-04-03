@@ -1,6 +1,7 @@
 package hello.core.common;
 
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -8,7 +9,7 @@ import javax.annotation.PreDestroy;
 import java.util.UUID;
 
 @Component
-@Scope(value = "request") // 고객 요청이 왔을 때, 빈 생성
+@Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS) // MyLogger 껍데기만 만들어 두고, 실제 사용할 때 주입. 스프링은 가짜 proxy 객체 등록
 public class MyLogger {
 
     private String uuid;
